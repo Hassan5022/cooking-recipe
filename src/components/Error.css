@@ -1,0 +1,9 @@
+.error {
+    max-width: 1200px;
+    margin: 40px auto;
+    text-align: center;
+    background: #fff;
+    padding: 40px;
+    box-sizing: border-box;
+    font-size: 32px;
+  }
