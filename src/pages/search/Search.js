@@ -14,7 +14,7 @@ export default function Search() {
   return (
     <div>
       <h2 className='page-title'>Recipes including "{query}"</h2>
-      {error && <Error />}
+      {error && <Error message={"Could not found data"}/>}
       {isPending && <p className='loading'>Loading...</p>}
       {data && <RecipeList recipes={data} />}
     </div>

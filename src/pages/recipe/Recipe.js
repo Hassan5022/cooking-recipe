@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Error from '../../components/Error';
 import { useFetch } from '../../hooks/useFetch';
+import { useTheme } from '../../hooks/useTheme';
 import './Recipe.css'
 
 export default function Recipe() {
@@ -8,6 +10,7 @@ export default function Recipe() {
   const { id } = useParams()
   const { data: recipe, isPending, error } = useFetch(`http://localhost:3000/recipes/${id}`)
   const navigate = useNavigate()
+  const { mode } = useTheme()
 
   useEffect(() => {
     if (error) {
@@ -18,9 +21,9 @@ export default function Recipe() {
   }, [error, navigate])
 
   return (
-    <div className='recipe'>
+    <div className={`recipe ${mode}`}>
         {isPending && <p>Loading...</p>}
-      {error && <div>Could not found data</div>}
+      {error && <Error message={"Could not found data"}/>}
       {recipe && (
         <>
           <h2 className='page-title'>{recipe.title}</h2>

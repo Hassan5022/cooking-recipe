@@ -7,3 +7,8 @@
     box-sizing: border-box;
     font-size: 32px;
   }
+
+  .error.dark{
+    background-color: #555;
+    color: #e4e4e4;
+  }
