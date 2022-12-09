@@ -22,8 +22,8 @@ function App() {
           <Route path='/' element={ <Home/> } />
           <Route path='/create' element={ <Create/> } />
           <Route path='/recipes/:id' element={ <Recipe/> } />
-          <Route path='/search' element={ <Search/> } />
-          <Route path='*' element={ <Error/>} />
+          <Route path='/search' element={ <Search/> } /> 
+          <Route path='*' element={ <Error message={'Not Found'}/>} />
         </Routes>
       </BrowserRouter>
     </div>

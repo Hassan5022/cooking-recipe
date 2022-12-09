@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import Error from './Error';
-
+import trashIcon from '../assets/delete.svg';
 import './RecipeList.css';
+import { projectFirestore } from '../firebase/config';
 
 export default function RecipeList({ recipes }) {
 
     const { mode } = useTheme()
     
-    if(recipes.length === 0) return <Error message={'No recipes to load ...'} />
+    if (recipes.length === 0) return <Error message={'No recipes to load ...'} />
+    
+    const handleDelete = (id) => {
+        projectFirestore.collection('recipes').doc(id).delete()
+    }
 
   return (
       <div className='recipe-list'>
@@ -18,6 +23,12 @@ export default function RecipeList({ recipes }) {
                   <p>{recipe.cookingTime} to make.</p>
                   <div>{recipe.method.substring(0, 100)}...</div>
                   <Link to={`/recipes/${recipe.id}`}>Cook this</Link>
+                  <img
+                      className='delete'
+                      onClick={() => handleDelete(recipe.id)}
+                      src={trashIcon}
+                      alt='delete icon'
+                  />
               </div>
           ))}
       </div>

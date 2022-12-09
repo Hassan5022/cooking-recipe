@@ -1,19 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
 import { useTheme } from "../../hooks/useTheme";
 import "./Create.css";
+import {projectFirestore} from '../../firebase/config'
 
 export default function Create() {
+  
 	const [title, setTitle] = useState("");
 	const [method, setMethod] = useState("");
 	const [cookingTime, setCookingTime] = useState("");
 	const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const ingredientInput = useRef(null)
-  const { postData, data} = useFetch('http://localhost:3000/recipes', 'POST')
   const navigate = useNavigate()
   const { mode } = useTheme()
+  const [isPending, setIsPending] = useState(false);
 
   const clearData = () => {
     setTitle('')
@@ -22,18 +23,22 @@ export default function Create() {
     setIngredients([])
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const doc = { title, ingredients, method, cookingTime: cookingTime + ' minutes' };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-    postData({ title, ingredients, method, cookingTime: cookingTime + ' minutes' })
-    clearData()
-  };
-
-  useEffect(() => {
-    if (data) {
-      navigate('/')
+    try {
+      setIsPending(true)
+      await projectFirestore.collection('recipes').add(doc);
+      setIsPending(false)
+      clearData();
+      navigate('/');
+    } catch (err) {
+      clearData();
+      console.log(err.message);
+      setIsPending(false)
     }
-  }, [data])
+  };
 
   const handleAdd = (e) => {
     e.preventDefault()
@@ -47,6 +52,7 @@ export default function Create() {
 
 	return (
     <div className={`create ${mode}`}>
+      {isPending && <p className={`loading ${mode}`}>Loading...</p>}
       <h2 className="page-title">Add a New Recipe</h2>
       <form onSubmit={handleSubmit}>
         

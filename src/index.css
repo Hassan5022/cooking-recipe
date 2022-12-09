@@ -30,7 +30,19 @@ input, textarea {
   margin: 40px auto;
   color: #333;
 }
-.loading, .error {
+
+
+.loading {
+  max-width: 1200px;
+  margin: 0px auto;
   text-align: center;
-  margin: 40px auto;
+  background: #fff;
+  padding: 28px;
+  box-sizing: border-box;
+  font-size: 32px;
+}
+
+.loading.dark{
+  background-color: #555;
+  color: #e4e4e4;
 }
