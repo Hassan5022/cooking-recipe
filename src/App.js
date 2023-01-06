@@ -26,6 +26,7 @@ function App() {
           <Route path='*' element={ <Error message={'Not Found'}/>} />
         </Routes>
       </BrowserRouter>
+      <div className='footer'></div>
     </div>
   );
 }

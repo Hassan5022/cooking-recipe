@@ -14,7 +14,7 @@ export default function Navbar() {
 		>
 			<nav>
 				<NavLink className="brand" to="/">
-					<h1>Cooking Ninja</h1>
+					<h1>Recipe List</h1>
 				</NavLink>
 				<Searchbar />
 				<NavLink to="/create">Create Recipe</NavLink>

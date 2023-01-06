@@ -96,7 +96,7 @@ export default function Create() {
         
         <button className="btn">Submit</button>
         
-			</form>
+      </form>
 		</div>
 	);
 }
